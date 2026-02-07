@@ -20,7 +20,7 @@ const PageBanner = ({ title, subtitle, image }: PageBannerProps) => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4"
+          className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 text-shadow-hero"
         >
           {title}
         </motion.h1>
@@ -29,7 +29,7 @@ const PageBanner = ({ title, subtitle, image }: PageBannerProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl font-light"
+            className="text-primary-foreground/90 text-lg md:text-xl max-w-2xl font-normal text-shadow-hero"
           >
             {subtitle}
           </motion.p>

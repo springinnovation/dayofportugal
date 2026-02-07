@@ -29,15 +29,15 @@ const Index = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-portugal-gold font-display text-lg md:text-xl italic mb-4 tracking-wide">
+            <p className="text-portugal-gold font-display text-lg md:text-xl italic mb-4 tracking-wide text-shadow-hero">
               Dia de Portugal, de Camões e das Comunidades Portuguesas
             </p>
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground mb-6 leading-[1.1]">
+            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground mb-6 leading-[1.1] text-shadow-hero">
               Rhode Island
               <br />
               <span className="text-portugal-gold">Day of Portugal</span>
             </h1>
-            <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-light leading-relaxed">
+            <p className="text-primary-foreground/90 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-normal leading-relaxed text-shadow-hero">
               Celebrating Portuguese American culture, heritage, and community every June 10th in the heart of Rhode Island.
             </p>
           </motion.div>
