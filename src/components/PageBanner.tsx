@@ -16,7 +16,6 @@ const PageBanner = ({ title, subtitle, image }: PageBannerProps) => {
       />
       <div className="absolute inset-0 bg-gradient-hero" />
       <div className="relative h-full container mx-auto px-4 flex flex-col items-center justify-center text-center">
-        <div className="absolute inset-0 mx-auto max-w-2xl my-auto h-fit py-10 px-8 rounded-2xl bg-black/30 backdrop-blur-sm" />
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
