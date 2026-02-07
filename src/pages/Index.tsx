@@ -24,7 +24,6 @@ const Index = () => {
         <img src={heroBanner} alt="Portuguese festival celebration" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-hero" />
         <div className="relative h-full container mx-auto px-4 flex flex-col items-center justify-center text-center">
-          <div className="absolute inset-0 mx-auto max-w-3xl my-auto h-fit py-12 px-8 rounded-2xl bg-black/30 backdrop-blur-sm" />
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
