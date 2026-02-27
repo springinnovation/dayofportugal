@@ -19,17 +19,25 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    (
+    <>
+      {/* Floating Logo — positioned to the left of site name */}
+      <Link
+        to="/"
+        className="fixed top-0 left-4 md:left-8 z-[60] pointer-events-auto"
+        aria-label="Home"
+      >
+        <img
+          src={logo}
+          alt="RI Day of Portugal logo"
+          className="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 object-contain drop-shadow-xl transition-transform hover:scale-105"
+        />
+      </Link>
+
       <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            {/* Left: logo + site name */}
-            <Link to="/" className="flex items-center gap-2 group">
-              <img
-                src={logo}
-                alt="RI Day of Portugal logo"
-                className="w-10 h-10 md:w-12 md:h-12 object-contain"
-              />
+            {/* Left: site name with spacer for floating logo */}
+            <Link to="/" className="flex items-center gap-2 group pl-20 md:pl-28 lg:pl-32">
               <div className="hidden sm:block">
                 <p className="font-display text-base font-bold text-foreground leading-tight">
                   Rhode Island
@@ -116,7 +124,7 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </nav>
-    )
+    </>
   );
 };
 
