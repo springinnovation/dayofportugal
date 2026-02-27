@@ -19,25 +19,17 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <>
-      {/* Floating Logo — sits above navbar and hero */}
-      <Link
-        to="/"
-        className="fixed top-0 left-1/2 -translate-x-1/2 z-[60] pointer-events-auto"
-        aria-label="Home"
-      >
-        <img
-          src={logo}
-          alt="RI Day of Portugal logo"
-          className="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 object-contain drop-shadow-xl transition-transform hover:scale-105"
-        />
-      </Link>
-
+    (
       <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            {/* Left: site name */}
+            {/* Left: logo + site name */}
             <Link to="/" className="flex items-center gap-2 group">
+              <img
+                src={logo}
+                alt="RI Day of Portugal logo"
+                className="w-10 h-10 md:w-12 md:h-12 object-contain"
+              />
               <div className="hidden sm:block">
                 <p className="font-display text-base font-bold text-foreground leading-tight">
                   Rhode Island
@@ -48,28 +40,9 @@ const Navbar = () => {
               </div>
             </Link>
 
-            {/* Desktop Nav — centered with gap for logo */}
+            {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-1">
-              {navLinks.slice(0, 3).map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200
-                    ${
-                      location.pathname === link.to
-                        ? "text-primary bg-primary/10 font-bold"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                    }
-                  `}
-                >
-                  {link.label}
-                </Link>
-              ))}
-
-              {/* Spacer for floating logo */}
-              <div className="w-28 lg:w-36" />
-
-              {navLinks.slice(3).map((link) => (
+              {navLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
@@ -143,7 +116,7 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </nav>
-    </>
+    )
   );
 };
 
