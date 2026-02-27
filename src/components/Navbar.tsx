@@ -37,7 +37,7 @@ const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Left: site name with spacer for floating logo */}
-            <Link to="/" className="flex items-center gap-2 group pl-20 md:pl-28 lg:pl-32">
+            <Link to="/" className="flex items-center gap-2 group pl-24 md:pl-32 lg:pl-36">
               <div className="hidden sm:block">
                 <p className="font-display text-base font-bold text-foreground leading-tight">
                   Rhode Island
