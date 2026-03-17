@@ -65,7 +65,8 @@ const Index = () => {
     <Layout>
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] overflow-hidden bg-portugal-navy">
-        <img src="/hero2.jpg" alt="Portuguese festival celebration" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "calc(50% + 500px) center", maskImage: "linear-gradient(to right, transparent 20%, black 60%)", WebkitMaskImage: "linear-gradient(to right, transparent 20%, black 60%)" }} />
+        <img src="/hero2.jpg" alt="Portuguese festival celebration" className="hidden md:block absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "calc(50% + 500px) center", maskImage: "linear-gradient(to right, transparent 20%, black 60%)", WebkitMaskImage: "linear-gradient(to right, transparent 20%, black 60%)" }} />
+        <img src="/hero2-mobile.png" alt="Portuguese festival celebration" className="block md:hidden absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-hero" />
         <div className="relative h-full container mx-auto px-4 flex flex-col items-start justify-center text-left">
           <motion.div
