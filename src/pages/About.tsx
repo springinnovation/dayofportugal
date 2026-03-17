@@ -122,6 +122,9 @@ const About = () => {
             <p className="text-muted-foreground leading-relaxed mb-4">
               The ad hoc committee was comprised of ten representatives of the Portuguese-American communities of Rhode Island including the corporation's accountant and attorney. Six of the ten members were past presidents of Day of Portugal in RI.
             </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              The committee members were Al Nunes, 2013 President and presiding chair, Lídia Alves, António Ambrósio, José Borges, Marie R. Fraley, Luís Lourenço, C.P.A., Susan A. Pachedo, Esq., João Luís Morgado Pacheco, António Rodrigues, and Victor Santos.
+            </p>
             <p className="text-muted-foreground leading-relaxed">
               The final draft of the bylaws was ratified unanimously by the membership at the General Assembly Meeting on January 23, 2014 at the Clube Juventude Lusitana, 10 Chase St., Cumberland, RI 02864.
             </p>
@@ -141,18 +144,21 @@ const About = () => {
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {[
-                { label: "Bylaws (English)", desc: "Bylaws of Day of Portugal and Portuguese Heritage in RI, Inc." },
-                { label: "Estatutos (Portuguese)", desc: "Estatutos do Dia de Portugal e da Herança Portuguesa em RI, Inc." },
-                { label: "Political Campaign Policy", desc: "Policy relative to political campaign participation at RI Day of Portugal events." },
-                { label: "President Applications", desc: "Policy relative to call for applications for president." },
+                { label: "Bylaws (English)", desc: "Bylaws of Day of Portugal and Portuguese Heritage in RI, Inc.", href: "/Bylaws.pdf" },
+                { label: "Estatutos (Portuguese)", desc: "Estatutos do Dia de Portugal e da Herança Portuguesa em RI, Inc.", href: "/Bylaws-Portuguese.pdf" },
+                { label: "Political Campaign Policy", desc: "Policy relative to political campaign participation at RI Day of Portugal events.", href: "/Policy.pdf" },
+                { label: "President Applications", desc: "Policy relative to call for applications for president.", href: "/Candidates.pdf" },
               ].map((doc) => (
-                <div
+                <a
                   key={doc.label}
-                  className="p-5 rounded-lg bg-card border border-border hover:shadow-warm transition-shadow"
+                  href={doc.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-5 rounded-lg bg-card border border-border hover:shadow-warm transition-shadow block"
                 >
                   <h4 className="font-display font-semibold text-foreground mb-1">{doc.label}</h4>
                   <p className="text-sm text-muted-foreground">{doc.desc}</p>
-                </div>
+                </a>
               ))}
             </div>
           </motion.div>

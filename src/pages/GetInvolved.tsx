@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Heart, Users, HandHeart, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import PageBanner from "@/components/PageBanner";
+import { useSubmitVolunteer } from "@/hooks/useVolunteers";
 import volunteerBanner from "@/assets/volunteer-banner.jpg";
 
 const fadeUp = {
@@ -14,6 +16,26 @@ const fadeUp = {
 };
 
 const GetInvolved = () => {
+  const submitVolunteer = useSubmitVolunteer();
+  const [form, setForm] = useState({ full_name: "", email: "", phone: "", area_of_interest: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.full_name || !form.email) return;
+    try {
+      await submitVolunteer.mutateAsync(form);
+      setSubmitted(true);
+      setForm({ full_name: "", email: "", phone: "", area_of_interest: "", message: "" });
+    } catch {
+      // error handled by mutation
+    }
+  };
+
   return (
     <Layout>
       <PageBanner
@@ -95,42 +117,73 @@ const GetInvolved = () => {
               Our Volunteers are the heartbeat of RI Day of Portugal. Whether you can help at events, with planning, or behind the scenes — every contribution makes a difference. We welcome volunteers of all backgrounds who share a passion for Portuguese culture and community.
             </p>
 
-            <form
-              className="grid sm:grid-cols-2 gap-4 max-w-2xl"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-              <input
-                type="text"
-                placeholder="Area of Interest"
-                className="px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-              <textarea
-                placeholder="Tell us a little about yourself..."
-                rows={4}
-                className="sm:col-span-2 px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none"
-              />
-              <button
-                type="submit"
-                className="sm:col-span-2 px-6 py-3 rounded-md bg-secondary text-secondary-foreground font-bold hover:bg-secondary/90 transition-colors"
+            {submitted ? (
+              <div className="p-6 rounded-lg bg-secondary/10 border border-secondary/20 text-center max-w-2xl">
+                <h3 className="font-display text-xl font-bold text-foreground mb-2">Thank you for signing up!</h3>
+                <p className="text-muted-foreground">We'll be in touch soon about volunteer opportunities.</p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="mt-4 text-sm text-primary font-medium hover:underline"
+                >
+                  Submit another response
+                </button>
+              </div>
+            ) : (
+              <form
+                className="grid sm:grid-cols-2 gap-4 max-w-2xl"
+                onSubmit={handleSubmit}
               >
-                Sign Up to Volunteer
-              </button>
-            </form>
+                <input
+                  type="text"
+                  name="full_name"
+                  value={form.full_name}
+                  onChange={handleChange}
+                  placeholder="Full Name *"
+                  required
+                  className="px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="Email Address *"
+                  required
+                  className="px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="Phone Number"
+                  className="px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+                <input
+                  type="text"
+                  name="area_of_interest"
+                  value={form.area_of_interest}
+                  onChange={handleChange}
+                  placeholder="Area of Interest"
+                  className="px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  placeholder="Tell us a little about yourself..."
+                  rows={4}
+                  className="sm:col-span-2 px-4 py-3 rounded-md border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none"
+                />
+                <button
+                  type="submit"
+                  disabled={submitVolunteer.isPending}
+                  className="sm:col-span-2 px-6 py-3 rounded-md bg-secondary text-secondary-foreground font-bold hover:bg-secondary/90 transition-colors disabled:opacity-50"
+                >
+                  {submitVolunteer.isPending ? "Submitting..." : "Sign Up to Volunteer"}
+                </button>
+              </form>
+            )}
           </motion.div>
 
           {/* Donate */}

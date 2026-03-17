@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, ArrowRight, FileDown } from "lucide-react";
 import Layout from "@/components/Layout";
 import PageBanner from "@/components/PageBanner";
+import { Skeleton } from "@/components/ui/skeleton";
+import { usePublicEvents } from "@/hooks/useEvents";
 import eventsBanner from "@/assets/events-banner.jpg";
 
 const fadeUp = {
@@ -14,64 +16,10 @@ const fadeUp = {
   }),
 };
 
-const annualEvents = [
-  {
-    title: "RI Day of Portugal Parade",
-    desc: "A vibrant parade through the streets celebrating Portuguese American pride, culture, and heritage with floats, music, and community spirit.",
-    date: "June",
-    location: "Providence, RI",
-  },
-  {
-    title: "RI Day of Portugal Festival",
-    desc: "The main festival featuring live entertainment, Portuguese food vendors, traditional music, and family-friendly activities.",
-    date: "June",
-    location: "India Point Park, Providence",
-  },
-  {
-    title: "Feira de Gastronomia e Folclore",
-    desc: "A celebration of Portuguese cuisine and folklore, featuring traditional dishes, folk dancing, and cultural performances.",
-    date: "Summer",
-    location: "Rhode Island",
-  },
-  {
-    title: "Golf Tournament",
-    desc: "Annual charity golf tournament supporting the organization's scholarship fund and community programs.",
-    date: "Summer",
-    location: "Rhode Island",
-  },
-  {
-    title: "5K Road Race",
-    desc: "Community road race bringing together runners of all levels to celebrate Portuguese American heritage through fitness.",
-    date: "June",
-    location: "Providence, RI",
-  },
-  {
-    title: "Miss Dia de Portugal RI",
-    desc: "Annual pageant celebrating Portuguese American young women who embody the culture, traditions, and community values.",
-    date: "Spring",
-    location: "Rhode Island",
-  },
-  {
-    title: "Trap Shooting",
-    desc: "Competitive trap shooting event bringing the community together for a day of sport and camaraderie.",
-    date: "Summer",
-    location: "Rhode Island",
-  },
-  {
-    title: "Fishing Tournament",
-    desc: "Celebrating the Portuguese maritime tradition with a community fishing tournament for all skill levels.",
-    date: "Summer",
-    location: "Rhode Island",
-  },
-  {
-    title: "Veteran's Memorial",
-    desc: "A solemn ceremony honoring Portuguese American veterans who have served in the United States Armed Forces.",
-    date: "June",
-    location: "Rhode Island",
-  },
-];
-
 const Events = () => {
+  const { data: events, isLoading } = usePublicEvents();
+  const featuredEvent = events?.find((e) => e.is_featured);
+
   return (
     <Layout>
       <PageBanner
@@ -120,31 +68,60 @@ const Events = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {annualEvents.map((event, i) => (
-              <motion.div
-                key={event.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-30px" }}
-                custom={i % 3}
-                variants={fadeUp}
-                className="group p-6 rounded-lg bg-card border border-border hover:shadow-portugal hover:border-primary/20 transition-all duration-300"
-              >
-                <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground">
-                  <Calendar size={14} className="text-primary" />
-                  <span>{event.date}</span>
-                  <span className="text-border">•</span>
-                  <MapPin size={14} className="text-secondary" />
-                  <span>{event.location}</span>
-                </div>
-                <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {event.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {event.desc}
-                </p>
-              </motion.div>
-            ))}
+            {isLoading
+              ? Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="p-6 rounded-lg bg-card border border-border">
+                    <Skeleton className="h-4 w-32 mb-3" />
+                    <Skeleton className="h-5 w-48 mb-2" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-3/4 mt-1" />
+                  </div>
+                ))
+              : events?.map((event, i) => (
+                  <motion.div
+                    key={event.id}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-30px" }}
+                    custom={i % 3}
+                    variants={fadeUp}
+                    className="group rounded-lg bg-card border border-border hover:shadow-portugal hover:border-primary/20 transition-all duration-300 overflow-hidden"
+                  >
+                    {event.image_url && (
+                      <img
+                        src={event.image_url}
+                        alt={event.title}
+                        className="w-full h-48 object-cover"
+                      />
+                    )}
+                    <div className="p-6">
+                      <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground">
+                        <Calendar size={14} className="text-primary" />
+                        <span>{event.date_display}</span>
+                        <span className="text-border">•</span>
+                        <MapPin size={14} className="text-secondary" />
+                        <span>{event.location}</span>
+                      </div>
+                      <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        {event.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {event.description}
+                      </p>
+                      {event.document_url && (
+                        <a
+                          href={event.document_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 mt-4 text-sm font-medium text-primary hover:underline"
+                        >
+                          <FileDown size={16} />
+                          {event.document_name || "Download Document"}
+                        </a>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
           </div>
         </div>
       </section>

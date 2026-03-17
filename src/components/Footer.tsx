@@ -1,20 +1,20 @@
 import { Link } from "react-router-dom";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-portugal-navy text-primary-foreground">
+    <footer className="relative text-primary-foreground" style={{ backgroundImage: "url('/newport.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
+      <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--portugal-navy))] via-[hsl(var(--portugal-navy)/0.95)] to-[hsl(var(--portugal-navy)/0.7)]" />
       {/* Gold accent line */}
-      <div className="h-1 bg-portugal-gold" />
+      <div className="relative h-1 bg-portugal-gold" />
 
-      <div className="container mx-auto px-4 py-16">
+      <div className="relative container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-portugal flex items-center justify-center">
-                <span className="font-display text-primary-foreground text-lg font-bold">RI</span>
-              </div>
+              <img src={logo} alt="RI Day of Portugal logo" className="w-20 h-20 object-contain" />
               <div>
                 <p className="font-display text-lg font-bold leading-tight">Rhode Island</p>
                 <p className="font-display text-sm text-portugal-gold italic leading-tight">
@@ -25,6 +25,14 @@ const Footer = () => {
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
               Celebrating Portuguese American culture, heritage, and community in Rhode Island since the inception of Dia de Portugal.
             </p>
+            <div className="flex gap-4 mt-4">
+              <a href="https://www.facebook.com/groups/RIDayofPortugal/" target="_blank" rel="noopener noreferrer" className="text-primary-foreground/70 hover:text-portugal-gold transition-colors">
+                <Facebook size={20} />
+              </a>
+              <a href="https://www.instagram.com/ridayofportugal.org" target="_blank" rel="noopener noreferrer" className="text-primary-foreground/70 hover:text-portugal-gold transition-colors">
+                <Instagram size={20} />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -57,7 +65,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm text-primary-foreground/70">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-portugal-gold" />
-                <span>Rhode Island, USA</span>
+                <span>RI Day of Portugal<br />P.O. Box 9464<br />Providence, RI 02940</span>
               </li>
               <li className="flex items-start gap-3 text-sm text-primary-foreground/70">
                 <Mail size={16} className="mt-0.5 shrink-0 text-portugal-gold" />
@@ -89,16 +97,22 @@ const Footer = () => {
                 Subscribe
               </button>
             </form>
+            <p className="text-sm text-primary-foreground/70 italic font-display mt-4">
+              "Todo o mundo é composto de mudança"<br />— Luís de Camões
+            </p>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-primary-foreground/15 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-primary-foreground/50">
-            © {new Date().getFullYear()} Day of Portugal and Portuguese Heritage in RI, Inc. All rights reserved.
+        <div className="mt-12 pt-8 border-t border-primary-foreground/15 space-y-4">
+          <p className="text-xs text-primary-foreground/50 leading-relaxed text-center">
+            Day of Portugal and Portuguese Heritage in RI, Inc. (DBA RI Day of Portugal) is a 501(c)(3) non-profit organization under the IRS Code and incorporated under the laws of the State of Rhode Island.<br />Donations are tax-deductible to the extent allowed by law and will be acknowledged. IRS Tax ID# 20-8285748
           </p>
-          <p className="text-xs text-primary-foreground/50 italic font-display">
-            "Todo o mundo é composto de mudança" — Luís de Camões
+          <p className="text-xs text-primary-foreground/50 leading-relaxed text-center">
+            © 2026 Day of Portugal and Portuguese Heritage in RI, Inc. (DBA RI Day of Portugal) All rights reserved.
+          </p>
+          <p className="text-xs text-primary-foreground/50 leading-relaxed text-center">
+            Content may not be used without written permission. Use of downloadable registration and sponsorship forms permitted.
           </p>
         </div>
       </div>

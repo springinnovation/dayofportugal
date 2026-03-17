@@ -20,10 +20,10 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative h-[85vh] min-h-[600px] overflow-hidden">
-        <img src={heroBanner} alt="Portuguese festival celebration" className="absolute inset-0 w-full h-full object-cover" />
+      <section className="relative h-[85vh] min-h-[600px] overflow-hidden bg-portugal-navy">
+        <img src="/hero2.jpg" alt="Portuguese festival celebration" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "calc(50% + 500px) center", maskImage: "linear-gradient(to right, transparent 20%, black 60%)", WebkitMaskImage: "linear-gradient(to right, transparent 20%, black 60%)" }} />
         <div className="absolute inset-0 bg-gradient-hero" />
-        <div className="relative h-full container mx-auto px-4 flex flex-col items-center justify-center text-center">
+        <div className="relative h-full container mx-auto px-4 flex flex-col items-start justify-center text-left">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -32,12 +32,14 @@ const Index = () => {
             <p className="text-portugal-gold font-display text-lg md:text-xl italic mb-4 tracking-wide text-shadow-hero">
               Dia de Portugal, de Camões e das Comunidades Portuguesas
             </p>
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground mb-6 leading-[1.1] text-shadow-hero">
-              Rhode Island
+            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 leading-[1.2] text-shadow-hero">
+              Something <span className="text-portugal-gold" style={{ fontFamily: "'Dancing Script', cursive", fontSize: "1.4em" }}>Doce</span> is
               <br />
-              <span className="text-portugal-gold">Day of Portugal</span>
+              Happening Again:
+              <br />
+              Dia de Portugal in Providence
             </h1>
-            <p className="text-primary-foreground/90 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-normal leading-relaxed text-shadow-hero">
+            <p className="text-primary-foreground/90 text-lg md:text-xl max-w-2xl mb-8 font-normal leading-relaxed text-shadow-hero">
               Celebrating Portuguese American culture, heritage, and community every June 10th in the heart of Rhode Island.
             </p>
           </motion.div>
@@ -68,8 +70,9 @@ const Index = () => {
       </section>
 
       {/* About Preview */}
-      <section className="py-20 bg-gradient-section">
-        <div className="container mx-auto px-4">
+      <section className="relative py-20" style={{ backgroundImage: "url('/sidewalk.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
+        <div className="absolute inset-0 bg-background/85" />
+        <div className="relative container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
               initial="hidden"
@@ -128,28 +131,28 @@ const Index = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                icon: Calendar,
+                iconImg: "/cal.png",
                 title: "Annual Events",
                 desc: "Parades, festivals, gastronomia fairs, and cultural celebrations throughout the year.",
                 link: "/events",
                 img: eventsBanner,
               },
               {
-                icon: GraduationCap,
+                iconImg: "/cap.png",
                 title: "Scholarships",
                 desc: "Supporting Portuguese American students in Rhode Island with educational scholarships.",
                 link: "/scholarships",
                 img: scholarshipsBanner,
               },
               {
-                icon: Heart,
+                iconImg: "/help.png",
                 title: "Get Involved",
                 desc: "Volunteer, donate, and help rebuild our communities for future generations.",
                 link: "/get-involved",
                 img: volunteerBanner,
               },
               {
-                icon: Users,
+                iconImg: "/community.png",
                 title: "Community",
                 desc: "Connecting Portuguese Americans across Rhode Island through shared culture and traditions.",
                 link: "/about",
@@ -176,8 +179,8 @@ const Index = () => {
                     />
                   </div>
                   <div className="p-6">
-                    <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center mb-3">
-                      <item.icon className="text-primary" size={20} />
+                    <div className="w-10 h-10 rounded-md overflow-hidden mb-3">
+                      <img src={item.iconImg} alt={item.title} className="w-full h-full object-contain" />
                     </div>
                     <h3 className="font-display text-lg font-bold text-foreground mb-2">{item.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
@@ -190,14 +193,15 @@ const Index = () => {
       </section>
 
       {/* Camões Quote */}
-      <section className="py-16 bg-portugal-navy">
-        <div className="container mx-auto px-4 text-center">
+      <section className="relative py-16" style={{ backgroundImage: "url('/azulejo-tile.png')", backgroundSize: "200px", backgroundRepeat: "repeat" }}>
+        <div className="absolute inset-0 bg-portugal-navy/90" />
+        <div className="relative container mx-auto px-4 text-center">
           <motion.blockquote
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="max-w-3xl mx-auto"
+            className="max-w-3xl mx-auto bg-portugal-navy/60 rounded-xl px-8 py-10 backdrop-blur-sm"
           >
             <div className="azulejo-divider w-20 mx-auto mb-8 rounded-full" />
             <p className="font-display text-xl md:text-2xl italic text-primary-foreground/90 leading-relaxed mb-2">

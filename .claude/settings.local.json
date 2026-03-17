@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp:*)",
+      "Bash(cd:*)",
+      "Bash(curl:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "WebFetch(domain:www.ridayofportugal.org)",
+      "Bash(npm run:*)",
+      "Bash(scp:*)",
+      "Bash(where sshpass:*)",
+      "Bash(choco install:*)",
+      "Bash(gh repo:*)",
+      "Bash(gh --version)",
+      "Bash(where gh.exe)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Program Files \\(x86\\)/**)",
+      "Bash(winget install:*)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" --version)",
+      "Bash(\"/c/Program Files \\(x86\\)/GitHub CLI/gh.exe\" --version)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" auth status 2>&1)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" auth login --web --git-protocol https)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" repo create dayofportugal --public --source=. --remote=origin --description \"Day of Portugal RI — community website for the Rhode Island Day of Portugal celebration\" 2>&1)",
+      "Bash(git remote:*)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" auth status)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(python3 -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(f''''{a[id]} - {a[spec][name]}''''\\) for a in data.get\\(''''apps'''',[]\\)]\")",
+      "Bash(node -e \":*)",
+      "Bash(npm install:*)"
+    ]
+  }
+}
