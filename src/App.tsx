@@ -17,6 +17,7 @@ import AdminEvents from "./pages/admin/AdminEvents";
 import AdminSponsors from "./pages/admin/AdminSponsors";
 import AdminVolunteers from "./pages/admin/AdminVolunteers";
 import AdminScholarships from "./pages/admin/AdminScholarships";
+import AdminSubscribers from "./pages/admin/AdminSubscribers";
 import ScholarshipApplication from "./pages/ScholarshipApplication";
 import Sponsors from "./pages/Sponsors";
 import LicensePlates from "./pages/LicensePlates";
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/admin/sponsors" element={<ProtectedRoute><AdminSponsors /></ProtectedRoute>} />
           <Route path="/admin/volunteers" element={<ProtectedRoute><AdminVolunteers /></ProtectedRoute>} />
           <Route path="/admin/scholarships" element={<ProtectedRoute><AdminScholarships /></ProtectedRoute>} />
+          <Route path="/admin/subscribers" element={<ProtectedRoute><AdminSubscribers /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

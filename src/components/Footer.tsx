@@ -1,8 +1,31 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { api } from "@/lib/api";
 import logo from "@/assets/logo.png";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setLoading(true);
+    setError("");
+    try {
+      await api.post("/alerts/subscribe", { email });
+      setSuccess(true);
+      setEmail("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <footer className="relative text-primary-foreground" style={{ backgroundImage: "url('/newport.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--portugal-navy))] via-[hsl(var(--portugal-navy)/0.95)] to-[hsl(var(--portugal-navy)/0.7)]" />
@@ -84,19 +107,28 @@ const Footer = () => {
             <p className="text-sm text-primary-foreground/70 mb-4">
               Don't miss out on upcoming events and news!
             </p>
-            <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-4 py-2.5 rounded-md bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground text-sm placeholder:text-primary-foreground/40 focus:outline-none focus:border-portugal-gold"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2.5 rounded-md bg-portugal-gold text-accent-foreground font-bold text-sm hover:opacity-90 transition-opacity"
-              >
-                Subscribe
-              </button>
-            </form>
+            {success ? (
+              <p className="text-sm text-portugal-gold font-semibold">You're subscribed!</p>
+            ) : (
+              <form className="flex flex-col gap-2" onSubmit={handleSubscribe}>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="px-4 py-2.5 rounded-md bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground text-sm placeholder:text-primary-foreground/40 focus:outline-none focus:border-portugal-gold"
+                />
+                {error && <p className="text-xs text-red-400">{error}</p>}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="px-4 py-2.5 rounded-md bg-portugal-gold text-accent-foreground font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
+                >
+                  {loading ? "Subscribing..." : "Subscribe"}
+                </button>
+              </form>
+            )}
             <p className="text-sm text-primary-foreground/70 italic font-display mt-4">
               "Todo o mundo é composto de mudança"<br />— Luís de Camões
             </p>

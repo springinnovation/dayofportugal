@@ -10,6 +10,7 @@ import uploadRoutes from "./routes/upload.js";
 import sponsorRoutes from "./routes/sponsors.js";
 import volunteerRoutes from "./routes/volunteers.js";
 import scholarshipRoutes from "./routes/scholarships.js";
+import alertRoutes from "./routes/alerts.js";
 import { ensureBucket } from "./s3.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -29,6 +30,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/sponsors", sponsorRoutes);
 app.use("/api/volunteers", volunteerRoutes);
 app.use("/api/scholarships", scholarshipRoutes);
+app.use("/api/alerts", alertRoutes);
 
 // Health check
 app.get("/api/health", (_req, res) => {

@@ -42,6 +42,13 @@ async function migrate() {
     await query(sql5);
     console.log("Migration 005 completed.");
 
+    const sql6 = readFileSync(
+      path.resolve(__dirname, "migrations/006_create_alert_subscribers.sql"),
+      "utf-8"
+    );
+    await query(sql6);
+    console.log("Migration 006 completed.");
+
     console.log("All migrations completed successfully.");
   } catch (err) {
     console.error("Migration failed:", err);

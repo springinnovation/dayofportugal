@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LayoutDashboard, CalendarDays, Handshake, Users, GraduationCap, LogOut } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Handshake, Users, GraduationCap, Bell, LogOut } from "lucide-react";
 import { clearToken } from "@/lib/api";
 import logo from "@/assets/logo.png";
 
@@ -9,6 +9,7 @@ const navItems = [
   { to: "/admin/sponsors", label: "Sponsors", icon: Handshake },
   { to: "/admin/volunteers", label: "Volunteers", icon: Users },
   { to: "/admin/scholarships", label: "Scholarships", icon: GraduationCap },
+  { to: "/admin/subscribers", label: "Subscribers", icon: Bell },
 ];
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {

@@ -1,7 +1,13 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Calendar, GraduationCap, Heart, Users, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { api } from "@/lib/api";
 import heroBanner from "@/assets/hero-banner.jpg";
 import eventsBanner from "@/assets/events-banner.jpg";
 import scholarshipsBanner from "@/assets/scholarships-banner.jpg";
@@ -17,6 +23,44 @@ const fadeUp = {
 };
 
 const Index = () => {
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertEmail, setAlertEmail] = useState("");
+  const [alertPhone, setAlertPhone] = useState("");
+  const [alertLoading, setAlertLoading] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const [alertError, setAlertError] = useState("");
+
+  const handleAlertSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!alertEmail && !alertPhone) {
+      setAlertError("Please provide an email or phone number.");
+      return;
+    }
+    setAlertLoading(true);
+    setAlertError("");
+    try {
+      await api.post("/alerts/subscribe", {
+        email: alertEmail || undefined,
+        phone: alertPhone || undefined,
+      });
+      setAlertSuccess(true);
+      setAlertEmail("");
+      setAlertPhone("");
+    } catch (err) {
+      setAlertError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setAlertLoading(false);
+    }
+  };
+
+  const handleAlertClose = (open: boolean) => {
+    setAlertOpen(open);
+    if (!open) {
+      setAlertSuccess(false);
+      setAlertError("");
+    }
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -57,12 +101,12 @@ const Index = () => {
               Upcoming Events
               <ArrowRight size={18} />
             </Link>
-            <Link
-              to="/about"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-md border-2 border-primary-foreground/30 text-primary-foreground font-semibold text-base hover:bg-primary-foreground/10 transition-all"
+            <button
+              onClick={() => setAlertOpen(true)}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-md bg-portugal-gold text-portugal-navy font-bold text-base hover:bg-portugal-gold/90 transition-all shadow-portugal"
             >
-              Learn More
-            </Link>
+<span>Get <span style={{ fontFamily: "'Dancing Script', cursive", fontWeight: 700, fontSize: "1.5em" }}>Festa</span> Alerts!</span>
+            </button>
           </motion.div>
 
           <div className="azulejo-divider w-48 mt-12 rounded-full" />
@@ -251,6 +295,58 @@ const Index = () => {
           </motion.div>
         </div>
       </section>
+      {/* Festa Alerts Modal */}
+      <Dialog open={alertOpen} onOpenChange={handleAlertClose}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="font-display flex items-center gap-2">
+              Festa Alerts
+            </DialogTitle>
+            <DialogDescription>
+              Get notified about upcoming events, festivals, and community news. Sign up for text and email alerts.
+            </DialogDescription>
+          </DialogHeader>
+
+          {alertSuccess ? (
+            <div className="text-center py-4">
+              <p className="text-lg font-semibold text-green-600 mb-1">You're signed up!</p>
+              <p className="text-sm text-muted-foreground">
+                We'll keep you posted on all things Dia de Portugal.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleAlertSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="alert-email">Email</Label>
+                <Input
+                  id="alert-email"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={alertEmail}
+                  onChange={(e) => setAlertEmail(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="alert-phone">Mobile Number</Label>
+                <Input
+                  id="alert-phone"
+                  type="tel"
+                  placeholder="(401) 555-0123"
+                  value={alertPhone}
+                  onChange={(e) => setAlertPhone(e.target.value)}
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Provide at least one. We'll never share your info or spam you.
+              </p>
+              {alertError && <p className="text-sm text-destructive">{alertError}</p>}
+              <Button type="submit" className="w-full" disabled={alertLoading}>
+                {alertLoading ? "Subscribing..." : "Sign Up for Alerts"}
+              </Button>
+            </form>
+          )}
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 };
